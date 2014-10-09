@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+tempfile=`cat /etc/pococraft/pococraft-scripts.conf | grep "CURRENTCLIDIDTEMPFILE=" | cut -d'=' -f2`
+
+runteamspeak3server > /dev/null 2>&1
+pulseaudio -D > /dev/null 2>&1
+pax11publish -r > /dev/null 2>&1
+start-pulseaudio-x11 > /dev/null 2>&1
+#sleep 2.5
+pococraft-vlc-playlist > /dev/null 2>&1 &
+teamspeak3client-amd64 > /dev/null 2>&1 &
+pavucontrol > /dev/null 2>&1 &
+pococraft-manage-bot
+echo $?
+killall pavucontrol > /dev/null 2>&1
+echo $?
+killall vlc > /dev/null 2>&1
+echo $?
+
+exit $?

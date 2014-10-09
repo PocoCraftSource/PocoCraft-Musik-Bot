@@ -1,0 +1,7 @@
+#!/bin/bash
+
+teamspeakserverinstallationusername=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKSERVERINSTALLATIONDIRECTORY=" | cut -d'=' -f2`
+
+$teamspeakserverinstallationusername/ts3server_minimal_runscript.sh &
+
+exit $?

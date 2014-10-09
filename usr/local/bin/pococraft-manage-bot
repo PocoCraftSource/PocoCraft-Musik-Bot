@@ -1,0 +1,39 @@
+#!/bin/bash
+
+tempfile=`cat /etc/pococraft/pococraft-scripts.conf | grep "CURRENTCLIDIDTEMPFILE=" | cut -d'=' -f2`
+
+teamspeakclientqueryport=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYPORT=" | cut -d'=' -f2`
+
+teamspeakclientqueryaddress=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYADDRESS=" | cut -d'=' -f2`
+
+teamspeakclientbinaryfilename=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTBINARYFILENAME=" | cut -d'=' -f2`
+
+teamspeakclientqueryclientprogram=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYCLIENTPROGRAM=" | cut -d'=' -f2`
+
+teamspeakclientquerytimeout=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYTIMEOUT=" | cut -d'=' -f2`
+
+read -p "Restart the Musik Bot? (y/n): " yorn
+pococraft-teamspeak3client-query-check
+if [[ "$yorn" == "y" ]]; then
+  (echo "sendtextmessage targetmode=3 msg=Going\sdown,\sserver\smay\srestart.." ; echo "sendtextmessage targetmode=3 msg=The\sPocoCraft\sMusik\sBot\sand/or\sTeamSpeak\sserver\swill\sbe\sback\sshortly." ; echo "quit") | $teamspeakclientqueryclientprogram -w $teamspeakclientquerytimeout $teamspeakclientqueryaddress $teamspeakclientqueryport
+  echo $?
+  (echo "clientkick reasonid=5 reasonmsg=Restarting\sbot.. `cat $tempfile | grep clid`" ; echo "quit") | $teamspeakclientqueryclientprogram -w $teamspeakclientquerytimeout $teamspeakclientqueryaddress $teamspeakclientqueryport
+  echo $?
+  killall $teamspeakclientbinaryfilename > /dev/null 2>&1
+  echo $?
+  pococraft-teamspeak3server-combo
+  yesexitstatus="$?"
+  echo $yesexitstatus
+  exit $yesexitstatus
+else
+  (echo "sendtextmessage targetmode=3 msg=Musik\sBot\sgoing\sdown,\sserver\smay\srestart.." ; echo "quit") | $teamspeakclientqueryclientprogram -w $teamspeakclientquerytimeout $teamspeakclientqueryaddress $teamspeakclientqueryport
+  echo $?
+  (echo "clientkick reasonid=5 reasonmsg=Here's\smy\sstop.. `cat $tempfile | grep clid`" ; echo "quit") | $teamspeakclientqueryclientprogram -w $teamspeakclientquerytimeout $teamspeakclientqueryaddress $teamspeakclientqueryport
+  echo $?
+  killall $teamspeakclientbinaryfilename > /dev/null 2>&1
+  noexitstatus="$?"
+  echo $noexitstatus
+  exit $noexitstatus
+fi
+
+exit $?
