@@ -1,14 +1,14 @@
 #!/bin/bash
 
-tempfile=`cat /etc/pococraft/pococraft-scripts.conf | grep "CURRENTCLIDIDTEMPFILE=" | cut -d'=' -f2`
+tempfile=`cat /etc/pococraft/pococraft-scripts.conf | grep "CURRENTCLIDIDTEMPFILE=" | cut -d'=' -f2 | cut -d'"' -f2 | cut -d'"' -f1`
 
-teamspeakclientqueryport=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYPORT=" | cut -d'=' -f2`
+teamspeakclientqueryport=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYPORT=" | cut -d'=' -f2 | cut -d'"' -f2 | cut -d'"' -f1`
 
-teamspeakclientqueryaddress=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYADDRESS=" | cut -d'=' -f2`
+teamspeakclientqueryaddress=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYADDRESS=" | cut -d'=' -f2 | cut -d'"' -f2 | cut -d'"' -f1`
 
-teamspeakclientqueryclientprogram=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYCLIENTPROGRAM=" | cut -d'=' -f2`
+teamspeakclientqueryclientprogram=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYCLIENTPROGRAM=" | cut -d'=' -f2 | cut -d'"' -f2 | cut -d'"' -f1`
 
-teamspeakclientquerytimeout=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYTIMEOUT=" | cut -d'=' -f2`
+teamspeakclientquerytimeout=`cat /etc/pococraft/pococraft-scripts.conf | grep "TEAMSPEAKCLIENTQUERYTIMEOUT=" | cut -d'=' -f2 | cut -d'"' -f2 | cut -d'"' -f1`
 
 while :
 do

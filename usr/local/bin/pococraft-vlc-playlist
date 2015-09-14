@@ -1,6 +1,6 @@
 #!/bin/bash
 
-vlcmediaplayermusicdirectory=`cat /etc/pococraft/pococraft-scripts.conf | grep "VLCMEDIAPLAYERMUSICDIRECTORY=" | cut -d'=' -f2`
+vlcmediaplayermusicdirectory=`cat /etc/pococraft/pococraft-scripts.conf | grep "VLCMEDIAPLAYERMUSICDIRECTORY=" | cut -d'=' -f2 | cut -d'"' -f2 | cut -d'"' -f1`
 
 vlc --loop --random directory://$vlcmediaplayermusicdirectory
 
